@@ -1,14 +1,19 @@
-from sqlalchemy import create_engine
-from db import Base
-from alembic import context
-from sqlalchemy import pool
-from logging.config import fileConfig
-from dotenv import load_dotenv
+# fmt: off
 import os
 import sys
 
-
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+
+# fmt: oct
+
+
+
+from dotenv import load_dotenv
+from logging.config import fileConfig
+from sqlalchemy import pool
+from alembic import context
+from utils import Base
+from sqlalchemy import create_engine
 
 
 # from sqlalchemy import engine_from_config

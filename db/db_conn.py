@@ -1,7 +1,7 @@
 
 import os
 
-from db import Base
+from utils import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

@@ -1,3 +1,5 @@
+.idea/
+.vscode/
 logs/*
 .env
 __pycache__

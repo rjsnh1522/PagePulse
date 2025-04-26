@@ -1,5 +1,9 @@
 # fmt: off
+import os
+
 from dotenv import load_dotenv
+from starlette.middleware.sessions import SessionMiddleware
+
 load_dotenv('.env')
 # fmt: on
 from starlette.middleware.cors import CORSMiddleware
@@ -45,6 +49,11 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=os.getenv('SECRET_KEY'),
+    max_age=3600
+)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

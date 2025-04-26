@@ -41,13 +41,6 @@ class Visitor(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, index=True)
     unique_id = Column(String, index=True, unique=True)  # Stored in LocalStorage
-    ip = Column(String, index=True)  # Store actual IP
-    ipv6 = Column(String, index=True)  # Store actual IPv6
-    user_agent = Column(String)
-    browser = Column(String)
-    device = Column(String)
-    platform = Column(String)
-    country = Column(String)
     first_visit = Column(DateTime(timezone=True), server_default=func.now())
     last_visit = Column(DateTime(timezone=True),
                         server_default=func.now(), onupdate=func.now())
@@ -64,4 +57,11 @@ class Analytics(Base):
     landing_page = Column(String)  # First page visited in the session
     session_duration = Column(Float, default=0.0)  # Time spent on page (seconds)
     scroll_depth = Column(Float, default=0.0)  # Scroll % (0-100)
+    ip = Column(String, index=True)  # Store actual IP
+    ipv6 = Column(String, index=True)  # Store actual IPv6
+    user_agent = Column(String)
+    browser = Column(String)
+    device = Column(String)
+    platform = Column(String)
+    country = Column(String)
     timestamp = Column(DateTime(timezone=True), server_default=func.now())  # UTC timestamp

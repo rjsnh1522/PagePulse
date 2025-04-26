@@ -87,6 +87,7 @@
             maxScrollPosition = Math.max(maxScrollPosition, getMaxScrollPosition());
 
             return {
+                website_id: window.trackerWebsiteId,
                 visitor_id: visitorId,
                 visitor_session_id: visitorSessionId,
                 ipv4: ipv4,

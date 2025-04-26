@@ -4,8 +4,7 @@ from starlette.responses import JSONResponse
 
 from db.db_conn import get_db
 from db.schemas import AnalyticsData
-from services.analytics_service import AnalyticsService
-from tasks.analytics_tasks import process_analytics
+from tasks.bg_tasks import process_analytics
 from utils import app_logger
 
 router = APIRouter(prefix="", tags=["track"])

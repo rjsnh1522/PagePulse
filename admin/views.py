@@ -1,15 +1,16 @@
 from pydantic_core.core_schema import model_field
 from sqladmin import ModelView
-from db.models import Analytics, User, Website, Visitor
+from db.models import Analytics, User, Website, Visitor, UserLocation
 
 
 class AnalyticsAdmin(ModelView, model=Analytics):
     column_list = [
         "event_type", "visitor_id", "visitor_session_id",
-        "ipv4", "current_page_url", "platform",
-        "device", "session_duration", "timestamp"
+        "ip", "ipv6", "page_url", "platform",
+        "referrer",
+        "device", "session_duration", "scroll_depth", "country", "browser", "timestamp"
     ]
-    column_searchable_list = ["visitor_id", "visitor_session_id", "ipv4"]
+    column_searchable_list = ["visitor_id", "visitor_session_id", "ip"]
     column_sortable_list = ["timestamp", "session_duration"]
 
 
@@ -22,3 +23,11 @@ class WebsiteAdmin(ModelView, model=Website):
 
 class VisitorAdmin(ModelView, model=Visitor):
     column_list = ["id", "unique_id", "first_visit", "last_visit"]
+
+
+class UserLocationAdmin(ModelView, model=UserLocation):
+    column_list = [
+        "id", "analytics_id", "ip",
+        "network", "version", "city", "region",
+        "region_code", "country", "country_name", "country_code",
+        "postal", "latitude", "longitude"]

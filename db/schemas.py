@@ -7,11 +7,13 @@ class AnalyticsData(BaseModel):
     event_type: str  # "onLoad" or "onExit"
     visitor_id: str
     visitor_session_id: str
+    website_id: str
 
     ipv4: Optional[str] = None
     ipv6: Optional[str] = None
     current_page_url: HttpUrl
     current_page_path: str
+    domain_name: str
     referrer: Optional[str] = "Direct"
     platform: str
     device: str
@@ -22,3 +24,4 @@ class AnalyticsData(BaseModel):
     user_agent: str
     browser_primary: str
     browser_secondary: Optional[str] = None
+

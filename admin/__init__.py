@@ -1,7 +1,7 @@
 from sqladmin import Admin
 from fastapi import FastAPI
 from db.db_conn import engine
-from admin.views import AnalyticsAdmin, UserAdmin, WebsiteAdmin, VisitorAdmin
+from admin.views import AnalyticsAdmin, UserAdmin, WebsiteAdmin, VisitorAdmin, UserLocationAdmin
 
 
 def setup_admin(app: FastAPI):
@@ -10,4 +10,5 @@ def setup_admin(app: FastAPI):
     admin.add_view(UserAdmin)
     admin.add_view(WebsiteAdmin)
     admin.add_view(VisitorAdmin)
+    admin.add_view(UserLocationAdmin)
 

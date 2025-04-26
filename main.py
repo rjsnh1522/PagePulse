@@ -9,7 +9,6 @@ from api import routes
 from fastapi.routing import APIRoute
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import JSONResponse
 from admin import setup_admin
 
 
@@ -46,14 +45,18 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-app.include_router(routes.api_router, prefix="/v1")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 setup_admin(app)
 
 
-#
+@app.get("/", name="root")
+async def root(request: Request):
+    logger.info("Some message")
+    return "True"
+
+
 # @app.options("/{full_path:path}")
 # async def preflight_handler(request: Request, full_path: str):
 #     return JSONResponse(
@@ -65,11 +68,4 @@ setup_admin(app)
 #         }
 #     )
 
-
-
-
-@app.get("/", name="root")
-async def root(request: Request):
-    logger.info("Some message")
-    return "True"
-
+app.include_router(routes.api_router, prefix="/v1")

@@ -1,9 +1,21 @@
 from pydantic_core.core_schema import model_field
-from sqladmin import ModelView
+from sqladmin import ModelView, BaseView, expose
 from db.models import Analytics, User, Website, Visitor, UserLocation
 
 
+class DashboardAdmin(BaseView):
+    name = "Dashboard"
+    icon = "fa-solid fa-chart-line"
+
+    @expose("/dashboard", methods=["GET"])
+    async def report_page(self, request):
+        return await self.templates.TemplateResponse(request, "dashboard.html")
+
+
+
+
 class AnalyticsAdmin(ModelView, model=Analytics):
+    icon = "fa-solid fa-chart-line"
     column_list = [
         "event_type", "visitor_id", "visitor_session_id",
         "ip", "ipv6", "page_url", "platform",
@@ -31,3 +43,5 @@ class UserLocationAdmin(ModelView, model=UserLocation):
         "network", "version", "city", "region",
         "region_code", "country", "country_name", "country_code",
         "postal", "latitude", "longitude"]
+
+

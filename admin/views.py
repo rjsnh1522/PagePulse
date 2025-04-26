@@ -12,8 +12,6 @@ class DashboardAdmin(BaseView):
         return await self.templates.TemplateResponse(request, "dashboard.html")
 
 
-
-
 class AnalyticsAdmin(ModelView, model=Analytics):
     icon = "fa-solid fa-chart-line"
     column_list = [
@@ -27,17 +25,21 @@ class AnalyticsAdmin(ModelView, model=Analytics):
 
 
 class UserAdmin(ModelView, model=User):
+    icon = "fa fa-user"
     column_list = ["id", "name", "email", "is_active", "created_at"]
 
 class WebsiteAdmin(ModelView, model=Website):
+    icon = "fa fa-table"
     column_list = ["id", "domain", "owner_id", "created_at"]
 
 
 class VisitorAdmin(ModelView, model=Visitor):
+    icon = "fa fa-users"
     column_list = ["id", "unique_id", "first_visit", "last_visit"]
 
 
 class UserLocationAdmin(ModelView, model=UserLocation):
+    icon = "fa fa-location-arrow"
     column_list = [
         "id", "analytics_id", "ip",
         "network", "version", "city", "region",

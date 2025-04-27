@@ -1,6 +1,9 @@
 # fmt: off
 import os
 from dotenv import load_dotenv
+from starlette.middleware.trustedhost import TrustedHostMiddleware
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+
 load_dotenv('.env')
 # fmt: on
 from starlette.middleware.cors import CORSMiddleware
@@ -29,13 +32,15 @@ allowed_origins = [
     "https://rjsnh1522.github.io",  # Your blog
     "http://localhost:1313/",
     "http://localhost:1313",
-
+    "https://pagepulse-production.up.railway.app",
+    "https://pagepulse-production.up.railway.app/"
 ]
 
 
 app = FastAPI(
     title="PagePulse",
-    generate_unique_id_function=custom_generate_unique_id
+    generate_unique_id_function=custom_generate_unique_id,
+    root_path="/"
 )
 
 app.add_middleware(
@@ -51,6 +56,10 @@ app.add_middleware(
     secret_key=os.getenv('SECRET_KEY'),
     max_age=3600
 )
+
+app.add_middleware(ProxyHeadersMiddleware)
+app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_origins)  # Or specify your domain
+
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

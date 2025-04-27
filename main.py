@@ -1,13 +1,10 @@
 # fmt: off
 import os
-
 from dotenv import load_dotenv
-from starlette.middleware.sessions import SessionMiddleware
-
 load_dotenv('.env')
 # fmt: on
 from starlette.middleware.cors import CORSMiddleware
-
+from starlette.middleware.sessions import SessionMiddleware
 from utils.app_logger import createLogger
 from api import routes
 from fastapi.routing import APIRoute

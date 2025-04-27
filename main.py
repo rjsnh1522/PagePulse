@@ -57,7 +57,7 @@ app.add_middleware(
     max_age=3600
 )
 
-app.add_middleware(ProxyHeadersMiddleware)
+# app.add_middleware(ProxyHeadersMiddleware)
 # app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_origins)  # Or specify your domain
 
 

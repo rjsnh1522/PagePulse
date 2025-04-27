@@ -58,7 +58,7 @@ app.add_middleware(
 )
 
 app.add_middleware(ProxyHeadersMiddleware)
-app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_origins)  # Or specify your domain
+# app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_origins)  # Or specify your domain
 
 
 app.mount("/static", StaticFiles(directory="static"), name="static")

@@ -1,12 +1,11 @@
 # fmt: off
 import os
 from dotenv import load_dotenv
-from starlette.middleware.trustedhost import TrustedHostMiddleware
-from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
-
 load_dotenv('.env')
 # fmt: on
 from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware.trustedhost import TrustedHostMiddleware
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from utils.app_logger import createLogger
 from api import routes
@@ -43,6 +42,9 @@ app = FastAPI(
     root_path="/"
 )
 
+app.add_middleware(ProxyHeadersMiddleware)
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,  # Allow specific domains
@@ -71,6 +73,10 @@ async def root(request: Request):
     logger.info("Some message")
     return "True"
 
+
+@app.get("/check")
+async def check_scheme(request: Request):
+    return {"scheme": request.url.scheme}
 
 # @app.options("/{full_path:path}")
 # async def preflight_handler(request: Request, full_path: str):

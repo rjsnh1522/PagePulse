@@ -42,7 +42,7 @@ app = FastAPI(
     root_path="/"
 )
 
-app.add_middleware(ProxyHeadersMiddleware)
+# app.add_middleware(ProxyHeadersMiddleware)
 
 
 app.add_middleware(

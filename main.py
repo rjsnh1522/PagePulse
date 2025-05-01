@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 load_dotenv('.env')
 # fmt: on
 from starlette.middleware.cors import CORSMiddleware
-from starlette.middleware.trustedhost import TrustedHostMiddleware
-from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from starlette.middleware.sessions import SessionMiddleware
 from utils.app_logger import createLogger
 from api import routes
@@ -39,10 +37,7 @@ allowed_origins = [
 app = FastAPI(
     title="PagePulse",
     generate_unique_id_function=custom_generate_unique_id,
-    root_path="/"
 )
-
-# app.add_middleware(ProxyHeadersMiddleware)
 
 
 app.add_middleware(
@@ -58,10 +53,6 @@ app.add_middleware(
     secret_key=os.getenv('SECRET_KEY'),
     max_age=3600
 )
-
-# app.add_middleware(ProxyHeadersMiddleware)
-# app.add_middleware(TrustedHostMiddleware, allowed_hosts=allowed_origins)  # Or specify your domain
-
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 

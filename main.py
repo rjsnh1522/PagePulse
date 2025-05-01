@@ -1,6 +1,10 @@
 # fmt: off
 import os
+
+import sqladmin
 from dotenv import load_dotenv
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+
 load_dotenv('.env')
 # fmt: on
 from starlette.middleware.cors import CORSMiddleware
@@ -39,6 +43,8 @@ app = FastAPI(
     generate_unique_id_function=custom_generate_unique_id,
 )
 
+app.add_middleware(ProxyHeadersMiddleware)
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -55,6 +61,8 @@ app.add_middleware(
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+sqladmin_static_path = os.path.join(os.path.dirname(sqladmin.__file__), "statics")
+app.mount("/admin/statics", StaticFiles(directory=sqladmin_static_path), name="admin-statics")
 
 setup_admin(app)
 

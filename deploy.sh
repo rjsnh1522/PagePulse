@@ -1,17 +1,22 @@
-# deploy.sh
+#!/bin/bash
 
-# Define the path to your JS file
 JS_FILE="static/tracker.js"
 
-# Determine if it's a production or local environment
-if [ "$RAILWAY_ENV" == "production" ]; then
+if [ "$RAILWAY_ENVIRONMENT" == "production" ]; then
     API_URL="https://pagepulse-production.up.railway.app/v1/analytics"
 else
     API_URL="http://localhost:8080/v1/analytics"
 fi
 
-# Replace API_URL in the JavaScript file
-sed -i '' "s|const API_URL = .*|const API_URL = \"$API_URL\";|" $JS_FILE
+echo "Updating API_URL in $JS_FILE to: $API_URL"
+echo "OS type $OSTYPE"
+# Detect OS and apply correct sed command
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS
+    sed -i '' "s|const API_URL = .*|const API_URL = \"$API_URL\";|" "$JS_FILE"
+else
+    # Linux
+    sed -i "s|const API_URL = .*|const API_URL = \"$API_URL\";|" "$JS_FILE"
+fi
 
-# Print the value to ensure it's correctly replaced
-echo "API_URL set to: $API_URL"
+echo "✅ API_URL updated successfully."
